@@ -1,13 +1,17 @@
-import { IonButton, IonCard, IonCardContent, IonContent, IonHeader, IonIcon, IonInput, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonButton, IonCard, IonCardContent, IonContent, IonHeader, IonIcon, IonInput, IonPage, IonTitle, IonToolbar, useIonRouter } from '@ionic/react';
 import {logIn, personCircle} from "ionicons/icons";
 import React from 'react';
 
 const Login: React.FC = () => {
 
-const doLogin = (event: any) => {
-  event.preventDefault();
-  console.log("logged in");
-};
+  const router = useIonRouter();
+
+
+  const doLogin = (event: any) => {
+    event.preventDefault();
+    console.log("logged in");
+    // router.push("/home", "root");
+  };
 
   return (
     <IonPage>
