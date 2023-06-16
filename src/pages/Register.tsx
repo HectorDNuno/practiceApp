@@ -1,7 +1,7 @@
-import { IonBackButton, IonButton, IonCard, IonCardContent, IonContent, IonHeader, IonIcon, IonInput, IonPage, IonTitle, IonToolbar, useIonRouter } from '@ionic/react';
+import { IonBackButton, IonButton, IonButtons, IonCard, IonCardContent, IonContent, IonHeader, IonIcon, IonInput, IonPage, IonTitle, IonToolbar, useIonRouter } from '@ionic/react';
 import { addCircle } from 'ionicons/icons';
 import React, { useState } from 'react';
-import Gamepad from "../assets/gamepad.svg"
+import Profile from "../assets/profile.svg"
 
 const Register: React.FC = () => {
   const router = useIonRouter();
@@ -16,21 +16,22 @@ const Register: React.FC = () => {
 
   return (
     <IonPage>
-
     <IonHeader>
       <IonToolbar color={"primary"}>
 
-        <IonButton slot="start">
-          <IonBackButton defaultHref="/"></IonBackButton>
-        </IonButton>
+          <IonButtons slot="start">
+            <IonBackButton defaultHref="/"></IonBackButton>
+          </IonButtons>
 
         <IonTitle>Create Account</IonTitle>
       </IonToolbar>
     </IonHeader>
 
     <IonContent scrollY={false}>
+      <div className="ion-text-center ion-padding">
+        <img src={Profile} alt="gamepad logo" width={"20%"} />
+      </div>
 
-      <img src={Gamepad} alt="gamepad logo" width={"50%"} />
 
       <IonCard>
         <IonCardContent>
