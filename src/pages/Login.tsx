@@ -11,6 +11,7 @@ import {
   IonPage,
   IonTitle,
   IonToolbar,
+  useIonLoading,
   useIonRouter,
 } from "@ionic/react";
 import { logIn, personCircle, videocam } from "ionicons/icons";
@@ -21,6 +22,7 @@ const INTRO_KEY = "intro-seen";
 const Login: React.FC = () => {
   const router = useIonRouter();
   const [introSeen, setIntroSeen] = useState(true);
+  const [present, dismiss] = useIonLoading();
 
   useEffect(() => {
     const checkStorage = async () => {
@@ -32,10 +34,14 @@ const Login: React.FC = () => {
     checkStorage();
   }, []);
 
-  const doLogin = (event: any) => {
+  const doLogin = async (event: any) => {
     event.preventDefault();
-    console.log("logged in");
-    // router.push("/home", "root");
+    await present("Logging in...");
+
+    setTimeout(async () => {
+      dismiss();
+      router.push("/app", "root");
+    }, 2000);
   };
 
   const finishIntro = async () => {
@@ -60,7 +66,7 @@ const Login: React.FC = () => {
             </IonToolbar>
           </IonHeader>
 
-          <IonContent scrollY={false}>
+          <IonContent scrollY={false} className="ion-padding">
             <IonCard>
               <IonCardContent>
                 <form onSubmit={doLogin}>
