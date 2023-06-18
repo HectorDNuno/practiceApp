@@ -4,11 +4,14 @@ import {
   IonButton,
   IonCard,
   IonCardContent,
+  IonCol,
   IonContent,
+  IonGrid,
   IonHeader,
   IonIcon,
   IonInput,
   IonPage,
+  IonRow,
   IonTitle,
   IonToolbar,
   useIonLoading,
@@ -67,43 +70,49 @@ const Login: React.FC = () => {
           </IonHeader>
 
           <IonContent scrollY={false} className="ion-padding">
-            <IonCard>
-              <IonCardContent>
-                <form onSubmit={doLogin}>
-                  <IonInput
-                    label="Email"
-                    type="email"
-                    placeholder="email@example.com"
-                    labelPlacement="floating"
-                    fill="outline"
-                  ></IonInput>
+            <IonGrid fixed>
+              <IonRow class="ion-justify-content-center">
+                <IonCol size="12" sizeMd="8" sizeLg="6" sizeXl="4">
+                  <IonCard>
+                    <IonCardContent>
+                      <form onSubmit={doLogin}>
+                        <IonInput
+                          label="Email"
+                          type="email"
+                          placeholder="email@example.com"
+                          labelPlacement="floating"
+                          fill="outline"
+                        ></IonInput>
 
-                  <IonInput
-                    className="ion-margin-top"
-                    label="Password"
-                    type="password"
-                    placeholder="password"
-                    labelPlacement="floating"
-                    fill="outline"
-                  ></IonInput>
+                        <IonInput
+                          className="ion-margin-top"
+                          label="Password"
+                          type="password"
+                          placeholder="password"
+                          labelPlacement="floating"
+                          fill="outline"
+                        ></IonInput>
 
-                  <IonButton type="submit" expand="block" className="ion-margin-top">
-                    Login
-                    <IonIcon icon={logIn} slot="end"></IonIcon>
-                  </IonButton>
+                        <IonButton type="submit" expand="block" className="ion-margin-top">
+                          Login
+                          <IonIcon icon={logIn} slot="end"></IonIcon>
+                        </IonButton>
 
-                  <IonButton color={"secondary"} expand="block" className="ion-margin-top" routerLink="/register">
-                    Create account
-                    <IonIcon icon={personCircle} slot="end"></IonIcon>
-                  </IonButton>
+                        <IonButton color={"secondary"} expand="block" className="ion-margin-top" routerLink="/register">
+                          Create account
+                          <IonIcon icon={personCircle} slot="end"></IonIcon>
+                        </IonButton>
 
-                  <IonButton onClick={seeIntroAgain} expand="block" size="small" fill="clear" color={"medium"}>
-                    Watch intro again
-                    <IonIcon icon={videocam} slot="end"></IonIcon>
-                  </IonButton>
-                </form>
-              </IonCardContent>
-            </IonCard>
+                        <IonButton onClick={seeIntroAgain} expand="block" size="small" fill="clear" color={"medium"}>
+                          Watch intro again
+                          <IonIcon icon={videocam} slot="end"></IonIcon>
+                        </IonButton>
+                      </form>
+                    </IonCardContent>
+                  </IonCard>
+                </IonCol>
+              </IonRow>
+            </IonGrid>
           </IonContent>
         </IonPage>
       )}
