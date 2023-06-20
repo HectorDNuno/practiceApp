@@ -19,6 +19,7 @@ import {
   IonTitle,
   IonToolbar,
   useIonAlert,
+  useIonToast,
   useIonViewWillEnter,
 } from "@ionic/react";
 import { trashBinSharp } from "ionicons/icons";
@@ -28,6 +29,7 @@ const List: React.FC = () => {
   const [users, setUsers] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [showAlert] = useIonAlert();
+  const [showToast] = useIonToast();
 
   useIonViewWillEnter(async () => {
     const users = await getUsers();
@@ -44,14 +46,19 @@ const List: React.FC = () => {
 
   const clearList = () => {
     showAlert({
-      header: "confirm",
+      header: "Confirm",
       message: "Are you sure you want to delete all users?",
       buttons: [
-        { text: "cancel", role: "cancel" },
+        { text: "Cancel", role: "cancel" },
         {
-          text: "delete",
+          text: "Delete",
           handler: () => {
             setUsers([]);
+            showToast({
+              message: "All users deleted",
+              duration: 2000,
+              color: "danger",
+            });
           },
         },
       ],
