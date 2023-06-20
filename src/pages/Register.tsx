@@ -25,7 +25,6 @@ const Register: React.FC = () => {
 
   const doRegister = (event: any) => {
     event.preventDefault();
-    console.log("registered");
     router.goBack();
   };
 
