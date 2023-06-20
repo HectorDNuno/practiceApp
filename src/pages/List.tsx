@@ -18,6 +18,7 @@ import {
   IonSearchbar,
   IonTitle,
   IonToolbar,
+  useIonAlert,
   useIonViewWillEnter,
 } from "@ionic/react";
 import { trashBinSharp } from "ionicons/icons";
@@ -26,6 +27,7 @@ import React, { useState } from "react";
 const List: React.FC = () => {
   const [users, setUsers] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [showAlert] = useIonAlert();
 
   useIonViewWillEnter(async () => {
     const users = await getUsers();
@@ -40,7 +42,21 @@ const List: React.FC = () => {
     return users.results;
   };
 
-  const clearList = () => {};
+  const clearList = () => {
+    showAlert({
+      header: "confirm",
+      message: "Are you sure you want to delete all users?",
+      buttons: [
+        { text: "cancel", role: "cancel" },
+        {
+          text: "delete",
+          handler: () => {
+            setUsers([]);
+          },
+        },
+      ],
+    });
+  };
 
   return (
     <IonPage>
@@ -53,7 +69,7 @@ const List: React.FC = () => {
           <IonTitle>List</IonTitle>
 
           <IonButtons slot="end">
-            <IonButton>
+            <IonButton onClick={clearList}>
               <IonIcon slot="icon-only" icon={trashBinSharp} />
             </IonButton>
           </IonButtons>
@@ -68,7 +84,7 @@ const List: React.FC = () => {
         {users.map((user, index) => (
           <IonCard key={index}>
             <IonCardHeader>
-              <IonCardSubtitle>{user.login.username}</IonCardSubtitle>
+              <IonCardSubtitle>@{user.login.username}</IonCardSubtitle>
             </IonCardHeader>
 
             <IonCardContent className="ion-no-padding">
