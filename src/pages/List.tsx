@@ -109,7 +109,7 @@ const List: React.FC = () => {
             <IonCardContent className="ion-no-padding">
               <IonItem lines="none">
                 <IonAvatar slot="start">
-                  <IonImg src={user.picture.thumbnail} />
+                  <IonImg src={user.picture.large} />
                 </IonAvatar>
                 <IonLabel>
                   {user.name.first} {user.name.last}
