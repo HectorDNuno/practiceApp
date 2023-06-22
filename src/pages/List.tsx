@@ -21,6 +21,8 @@ import {
   IonRefresher,
   IonRefresherContent,
   IonSearchbar,
+  IonSegment,
+  IonSegmentButton,
   IonTitle,
   IonToolbar,
   useIonAlert,
@@ -28,7 +30,7 @@ import {
   useIonViewWillEnter,
 } from "@ionic/react";
 import { addSharp, trashBinSharp } from "ionicons/icons";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 const List: React.FC = () => {
   const [users, setUsers] = useState<any[]>([]);
@@ -38,6 +40,13 @@ const List: React.FC = () => {
   const [selectedUser, setSelectedUser] = useState<any>(null);
   const modal = useRef<HTMLIonModalElement>(null);
   const cardModal = useRef<HTMLIonModalElement>(null);
+  const [presentingElement, setPresentingElement] = useState<HTMLElement | null>(null);
+  const page = useRef(null);
+  const [activeSegment, setActiveSegment] = useState<any>("details");
+
+  useEffect(() => {
+    setPresentingElement(page.current);
+  }, []);
 
   useIonViewWillEnter(async () => {
     const users = await getUsers();
@@ -80,7 +89,7 @@ const List: React.FC = () => {
   };
 
   return (
-    <IonPage>
+    <IonPage ref={page}>
       <IonHeader>
         <IonToolbar color={"primary"}>
           <IonButtons slot="start">
@@ -145,14 +154,33 @@ const List: React.FC = () => {
 
               <IonTitle> {selectedUser?.login.username} </IonTitle>
             </IonToolbar>
+            <IonToolbar color={"tertiary"}>
+              <IonSegment value={activeSegment} onIonChange={(e) => setActiveSegment(e.detail.value!)}>
+                <IonSegmentButton value="details">Details</IonSegmentButton>
+                <IonSegmentButton value="calendar">Calendar</IonSegmentButton>
+              </IonSegment>
+            </IonToolbar>
           </IonHeader>
-          <IonContent>
-            {selectedUser?.name.first} {selectedUser?.name.last}{" "}
+          <IonContent className="ion-padding">
+            {activeSegment === "details" && (
+              <>
+                <p>
+                  Name: {selectedUser?.name.first} {selectedUser?.name.last}
+                </p>
+
+                <p>Age: {selectedUser?.dob.age}</p>
+                <p>Phone: {selectedUser?.phone}</p>
+                <p>
+                  Address: {selectedUser?.location.street.number} {selectedUser?.location.street.name}{" "}
+                  {selectedUser?.location.city} {selectedUser?.location.state} {selectedUser?.location.postcode}
+                </p>
+              </>
+            )}
           </IonContent>
         </IonModal>
       </IonContent>
 
-      <IonModal ref={cardModal} trigger="card-modal">
+      <IonModal ref={cardModal} trigger="card-modal" presentingElement={presentingElement!}>
         <IonHeader>
           <IonToolbar color={"tertiary"}>
             <IonButtons slot="start">
